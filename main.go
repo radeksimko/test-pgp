@@ -130,5 +130,9 @@ func verifyWithGopenPGP(signaturePath, artifactPath, rawKey string) (*crypto.Ver
 		return nil, err
 	}
 
-	return signingKey.VerifyDetached(artifactBytes, signatureBytes, crypto.Auto)
+	result, err := signingKey.VerifyDetached(artifactBytes, signatureBytes, crypto.Auto)
+	if err != nil {
+		return nil, err
+	}
+	return result, result.SignatureError()
 }
